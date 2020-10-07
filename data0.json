@@ -1,0 +1,20 @@
+  {
+    "id": 1,
+    "title": "Project 1",
+    "start_date": "2020-09-24 12:45:26",
+    "status": "Pending",
+    "active": "true",
+    "assignee": "Joe Smith",
+    "percent_complete": "0",
+    "details": {
+      "requestor":
+      {
+        "id": 234,
+        "name": "Jim Smith",
+        "department": "Special Requests Department"
+      },
+      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut elit ex. Etiam commodo, nibh et dignissim laoreet, ipsum ex lobortis lectus, at ultricies nulla nisi at dui. Fusce ultrices justo at porta imperdiet.",
+      "justification": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut elit ex. Etiam commodo, nibh et dignissim laoreet, ipsum ex lobortis lectus, at ultricies nulla nisi at dui. Fusce ultrices justo at porta imperdiet. Cras arcu nisi, lacinia vitae odio nec, gravida porta tellus. Nam leo turpis, maximus eget felis molestie, ultricies tristique diam. Pellentesque in commodo nulla. Suspendisse suscipit mattis fringilla."
+    },
+    "notes": []
+  }

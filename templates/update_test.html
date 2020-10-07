@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Mock Frontend for Python API</title>
+  <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>    
+  
+  <script src="{{ url_for('static', filename='js/update.js') }}"></script>
+    <script type="text/javascript">
+         //cannot move block to .js 
+        
+    </script>    
+    
+</head>
+
+<body>
+    
+    
+    <td colspan=1 style="text-align:left; background-color: #cdc5cd; ">
+        <button style="background: blue; color:white; font-size: 24px; width: 300px;height:100px;" onClick=sendPutResponse()>Project Update (PUT)</button>
+    </td>
+    <br><br><br>
+    <div style="border:1px solid red;width:500px;height:300px">Results:<p>
+    <div id="updateArea"></div>
+        
+    </div>
+    <div style="background: gold; margin-top:100px;margin-bottom:100px;width:320px;height:120px; border:1px solid green">
+        <a href='/API/all' target="_blank">        <button style="background: blue; color:white; font-size: 24px; width: 300px;height:100px;">View JSON of all results</button></a><br>
+    </div>
+    
+    <div style="border:1px solid red;width:500px;height:300px">
+        <button style="background: blue; color:white; font-size: 24px; width: 300px;height:100px;" onClick=sendPostResponse()>Add Note test (POST)</button>
+        <p>
+        </p>Note add Results:<p>
+        <div id="postArea"></div>        
+    </div>
+    <div style="border:1px solid red;width:500px;height:300px">
+        <button style="background: blue; color:white; font-size: 24px; width: 300px;height:100px;" onClick=sendDeleteResponse()>Delete Note test (DELETE)</button>
+        <p>
+        </p>Note delete Results:<p>
+        <div id="deleteArea"></div>        
+    </div>    
+    <div style="border:1px solid red;width:500px;height:300px">
+        <button style="background: blue; color:white; font-size: 24px; width: 300px;height:100px;" onClick=sendNotePutResponse()>Update Note test (PUT)</button>
+        <p>
+        </p>Note Update Results:<p>
+        <div id="noteUpdateArea"></div>        
+    </div>     
+    
+</body>
+</html>

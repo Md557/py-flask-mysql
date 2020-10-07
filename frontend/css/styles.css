@@ -1,0 +1,57 @@
+@font-face {
+    font-family: 'Open Sans', 'Georgia', 'Arial', Helvetica, -apple-system, sans-serif;
+    font-style:  normal;
+    font-weight: normal;
+    
+  }
+
+body{ /* general formatting*/
+    font-family: "Georgia";
+    background-color: #ede5ed; /* ecc9c9 background color is for the right sides of the page, 
+                                beyond the background image - no horizontal tiling*/
+
+    background-repeat: repeat-y;     /*tile the image vertically: repeat-y, not horizontally: repeat-x */
+}
+
+
+form{ /*change the button used for changing font colors */
+    /*background-color: #6969ff;*/
+    color:#6969aa;
+	font-weight: bold;
+    font-size: 16px;
+    border: none;    /*remove the borders for a more contemporary design */
+    cursor: pointer;    
+}
+
+
+button:hover{ /*change the state of the buttons when hovering over*/
+    background-color: #ff6969;
+    color:whitesmoke;
+	font-weight: bold;    
+}
+
+.button { /* the button class is not used anymore, legacy */
+	font-family: "Open Sans";
+	font-size: 14px;
+	font-style: normal;
+	font-weight: normal;
+	color: #000000;
+}
+
+a {
+	/*color: #00dd00;*/ /*by default (without use of javascript button), links are green */
+	text-decoration: none;
+	font-weight: bold;
+}
+a:visited{
+    color:#ccc
+}
+a:hover {
+    background-color: antiquewhite; 
+    color:#333;
+    text-decoration:none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
