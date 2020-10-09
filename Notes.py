@@ -15,9 +15,11 @@ def addNote(projectID,noteID,note):
     newNote=Notes(projectID,noteID,note)    
     db.session.add(newNote)
     db.session.commit()
+    #Should exception be caught, or message from SQLAlchemy returned to API, to make sure note actually updted?
     print("Added note ",noteID)
     
 def updateNote(projectID,noteID,note):
+    #Should exception be caught, or message from SQLAlchemy returned to API, to make sure note actually updted?
     Notes.query.filter_by(note_id=noteID).update({"note":note})
     db.session.commit()
     print("Updated note ",noteID)
@@ -26,6 +28,7 @@ def updateNote(projectID,noteID,note):
 def deleteNote(noteID):
     Notes.query.filter_by(note_id=noteID).delete()
     db.session.commit()
+    #Should exception be caught, or message from SQLAlchemy returned to API, to make sure note actually updted?
     print("Deleted note ",noteID)
     
 def printNotes():    
