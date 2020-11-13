@@ -18,5 +18,6 @@ PASSWORD='pass'
 HOST='localhost'
 PORT='3306'
 DB_NAME='projectBlue'
+#or pip install  mysqlclient-1.4.6-cp37-cp37m-win32.whl
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%s:%s@%s:%s/%s'%(USER,PASSWORD,HOST,PORT,DB_NAME)
 

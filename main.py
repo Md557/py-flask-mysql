@@ -212,9 +212,9 @@ def add_note_api():
         else:
             return("could not parse all note fields",400)
     except:
-        print("could not add note, exception occured, returning ",400)
+        print("could not add note, exception occured, returning ",500)
         #Should return reason why
-        return ("Could not add note, exception occured", 400)
+        return ("Could not add note, exception occured", 500)
     
 #############################################################
 ### API route, for updating notes
@@ -258,15 +258,15 @@ def update_note_api():
                 updateNote(projectID,noteID,note)
                 return ("note updated!", 200)      
             else:
-                print("note %s was not found, will not add or update, returning "%noteID,400)
-                return("note %s was not found, will not add or update"%noteID,400)
+                print("note %s was not found, will not add or update, returning "%noteID,404)
+                return("note %s was not found, will not add or update"%noteID,404)
                 
         else:
             print("could not parse all note fields during update, returning ",400)
             return("could not parse all note fields during update",400)
     except:
-        print("could not update note, exception occured, returning ",400)
-        return ("Could not update note, exception occured", 400)
+        print("could not update note, exception occured, returning ",500)
+        return ("Could not update note, exception occured", 500)
 
     
 #############################################################################
@@ -282,12 +282,12 @@ def delete_note_api(var1): #var1=Note ID
             print ("Note# %s deleted, returning "%(var1),200)
             return ("Note# %s deleted"%(var1),200)
         else:
-            print ("Note# %s was not found, returning"%(var1),400)
-            return ("Note# %s was not found"%(var1),400)
+            print ("Note# %s was not found, returning"%(var1),404)
+            return ("Note# %s was not found"%(var1),404)
 
     except:
-        print ("Exception occured while deleting Note# %s, returning"%(var1),400)
-        return ("Exception occured while deleting Note# %s"%(var1),400)
+        print ("Exception occured while deleting Note# %s, returning"%(var1),500)
+        return ("Exception occured while deleting Note# %s"%(var1),500)
 
 #############################################################
 ### API route, for displaying all projects & notes
