@@ -29,8 +29,20 @@ MYDIR = os.path.dirname(__file__) #add for heroku
 db=SQLAlchemy(app) #Connection # 1: Notes database through pymysql, ORM & SQAlchemy
 from Notes import * # moved Connection #1 class, ORM to separate file (notes.py)  
 #####################################################################################
+'''
+db.init_app(app) #This must come after the class User declaration (or whatver table will be used)
+try:
+    db.create_all(app=app)
+except:
+    print("exception caught with db.create_all, perhaps tables already existed")
+'''
 
-
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    print("app.teardown_appcontext decorator called")
+    db.session.remove()
+    
+    
 ################################################################################################
 #Connection #2: All databases (Notes & Project) through mysql-connector-python & cursor (no ORM)
 # requires refreshing data with commit before running query
@@ -311,15 +323,15 @@ def get_all_projects():
     select="SELECT id, title, start_date, status, active, assignee, percent_complete, details_requestor_id, details_requestor_name,details_requestor_department,details_summary,details_justification FROM projects"
     result=cursor.execute(select)
     print("result of select")
-    for (id,title,start_date,status,active,assignee,percent_complete,details_requestor_id,details_requestor_name,details_requestor_department,details_summary,details_justification) in cursor:
+    for (projectId,title,start_date,status,active,assignee,percent_complete,details_requestor_id,details_requestor_name,details_requestor_department,details_summary,details_justification) in cursor:
         details_requestor={"id":details_requestor_id,"name":details_requestor_name,"department":details_requestor_department}
         details={"requestor":details_requestor,"summary":details_summary,"justification":details_justification}
 
-        dict_cur={"id":id,"title":title,"start_date":start_date,"status":status,"assignee":assignee,"percent_complete":percent_complete,"details":details,"notes":[]}
+        dict_cur={"id":projectId,"title":title,"start_date":start_date,"status":status,"assignee":assignee,"percent_complete":percent_complete,"details":details,"notes":[]}
 
         projectList.append(dict_cur)
-        print("\n\nid,title, etc:", id,title,start_date,status,active,assignee,percent_complete,details_requestor_id,details_requestor_name,details_requestor_department,details_summary,details_justification)
-        project_id_list.append(id)
+        print("\n\nid,title, etc:", projectId,title,start_date,status,active,assignee,percent_complete,details_requestor_id,details_requestor_name,details_requestor_department,details_summary,details_justification)
+        project_id_list.append(projectId)
     #############################
     ######### ADD NOTES to project list
     ##############################
@@ -396,8 +408,8 @@ def update_project():
             cnx.commit() #cursor.execute("FLUSH TABLES projects")        
         except:
             print("WARNING: API/update could not refresh mysql-connector connection")
-        id=data['id']
-        print("id=",id)
+        projectId=data['id']
+        print("id=",projectId)
         skip1=["id","details","requestor","notes"] #Do not update "id"
         valid1=["title","start_date","status","active","assignee","percent_complete"]
         update_base=("UPDATE Projects "
@@ -407,7 +419,7 @@ def update_project():
         for keys in data: #non iterator: keys = list(data.keys()), keys=[*data.keys()] #for keys,values in data.items()
             #print("keys: ",keys," data:",data[keys])
             if keys not in skip1 and keys in valid1:
-                update_s=update_base%(keys,data[keys],id)
+                update_s=update_base%(keys,data[keys],projectId)
                 print(update_s)
                 cursor.execute(update_s)
             if keys=='details':#data['details']:
@@ -424,13 +436,13 @@ def update_project():
                         for requestorKey in details[keys].keys():
                             #print("item=",requestorKey,"value=",details[keys][requestorKey])
                             if requestorKey in valid2: #if db_key
-                                update_s=update_base%(db_map2[requestorKey],details[keys][requestorKey],id) #%(db_key,details[keys][requestorKey],id)
+                                update_s=update_base%(db_map2[requestorKey],details[keys][requestorKey],projectId) #%(db_key,details[keys][requestorKey],id)
                                 print(update_s)
                                 cursor.execute(update_s)                                                
                     else:
                         #db_key=None #if keys=='summary': #    db_key='details_summary' #if keys=='justification': #    db_key='details_justification'
                         if keys in valid3: #if db_key:
-                            update_s=update_base%(db_map3[keys],details[keys],id) #%(db_key,details[keys],id)
+                            update_s=update_base%(db_map3[keys],details[keys],projectId) #%(db_key,details[keys],id)
                             print('\n',update_s)
                             cursor.execute(update_s)                        
         cnx.commit()        
