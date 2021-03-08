@@ -161,10 +161,7 @@ def addInitialRecords():
                       "(project_id,note_id,note) VALUES ('%s','%s','%s')"%(p['id'],keys['id'],keys['note'])
 
                       )
-            try:
-                cursor.execute(statement)
-            except:
-                print("Unable to add some notes to database")
+            cursor.execute(statement)
     cnx.commit()         
     cursor.close()
 
@@ -185,7 +182,7 @@ def serve_update_test():
 @app.route('/API/notes/add', methods = ["POST"])
 @basic_auth.required
 def add_note_api():
-    try:    
+    if True: #TBD Pull & fix indendation of following block
         data={} #Start of parsing request data      
         if request.is_json:
             print("request is json, will use get_json() method")
@@ -217,16 +214,13 @@ def add_note_api():
                 
         if projectID and noteID and note:
             if getNoteById(noteID):
-                print("note %s already exists, returning"%noteID,400)
-                return("note %s already exists, returning 400"%noteID,400)                
+                print("note %s already exists, returning"%noteID,409)
+                return("note %s already exists, returning 400"%noteID,409)                
             addNote(projectID,noteID,note)
-            return ("note added!", 200)        
+            return ("note added!", 201)        
         else:
             return("could not parse all note fields",400)
-    except:
-        print("could not add note, exception occured, returning ",500)
-        #Should return reason why
-        return ("Could not add note, exception occured", 500)
+
     
 #############################################################
 ### API route, for updating notes
@@ -234,7 +228,7 @@ def add_note_api():
 @app.route('/API/notes/update', methods = ["PUT"])
 @basic_auth.required
 def update_note_api():
-    try:    
+    if True: # TBD: Fix indentation    
         data={} #Start of parsing request data      
         if request.is_json:
             print("request is json, will use get_json() method")
@@ -276,9 +270,6 @@ def update_note_api():
         else:
             print("could not parse all note fields during update, returning ",400)
             return("could not parse all note fields during update",400)
-    except:
-        print("could not update note, exception occured, returning ",500)
-        return ("Could not update note, exception occured", 500)
 
     
 #############################################################################
@@ -287,7 +278,7 @@ def update_note_api():
 @app.route('/API/notes/delete/<var1>', methods = ["DELETE"])
 @basic_auth.required
 def delete_note_api(var1): #var1=Note ID
-    try:
+    if True: # TBD: Fix indentation
         note=getNoteById(var1)
         if note:
             deleteNote(var1) 
@@ -296,10 +287,6 @@ def delete_note_api(var1): #var1=Note ID
         else:
             print ("Note# %s was not found, returning"%(var1),404)
             return ("Note# %s was not found"%(var1),404)
-
-    except:
-        print ("Exception occured while deleting Note# %s, returning"%(var1),500)
-        return ("Exception occured while deleting Note# %s"%(var1),500)
 
 #############################################################
 ### API route, for displaying all projects & notes
